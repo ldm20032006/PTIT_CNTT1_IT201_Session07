@@ -1,32 +1,47 @@
-#include<stdio.h>
-void selection_sort(int arr[],int start, int n) {
-    if(start > n -1) return;
-    int min = start;
-    for(int i = start + 1; i < n; i++) {
-        if(arr[i] < arr[min]) {
-            min = i;
+#include <stdio.h>
+#include <stdlib.h>
+void selectionSort(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        int min = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[min]) {
+                min = j;
+            }
+        }
+        if (min != i) {
+            int temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = temp;
         }
     }
-    if(min != start) {
-        int temp = arr[min];
-        arr[min] = arr[start];
-        arr[start] = temp;
-    }
-    selection_sort(arr, start + 1, n);
 }
 int main() {
-    int n;
-    scanf("%d", &n);
-    int arr[n];
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
+    int n,*arr;
+
+    printf("Moi ban nhap so luong phan tu: ");
+    scanf("%d",&n);
+
+    if (n < 0 || n > 100) {
+        printf("Khong hop le");
+        return 0;
     }
-    selection_sort(arr, 0, n);
-    printf("mang da sap xep");
+    arr = (int *)malloc(n * sizeof(int));
     for (int i = 0; i < n; i++) {
-        printf(" %d", arr[i]);
+        printf("Nhap phan tu %d : ", i+1);
+        scanf("%d",&arr[i]);
+    }
+    printf("Before");
+    for (int i = 0; i < n; i++) {
+        printf(" %d ", arr[i]);
     }
     printf("\n");
+    selectionSort(arr, n);
+    printf("After");
+    for (int i = 0; i < n; i++) {
+        printf(" %d ", arr[i]);
+    }
 
+    free(arr);
     return 0;
+
 }
